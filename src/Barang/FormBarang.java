@@ -44,11 +44,25 @@ public class FormBarang extends javax.swing.JFrame {
 
     }
 
+    private boolean validasi() {
+        if (tfIDBARANG.getText().isEmpty()
+                || tfNAMABARANG.getText().isEmpty()
+                || tfQTY.getText().isEmpty()
+                || tfHARGA.getText().isEmpty()) {
+            return false;
+        }
+        return true;
+    }
+
     private void save() {
-        if (TAG) {
-            create(); // true
+        if (validasi()) {
+            if (TAG) {
+                create(); // true
+            } else {
+                update(); // false
+            }
         } else {
-            update(); // false
+            JOptionPane.showMessageDialog(rootPane, "Inptan belum diisi!");
         }
     }
 
@@ -91,7 +105,7 @@ public class FormBarang extends javax.swing.JFrame {
                 tfNAMABARANG.setText(tblBARANG.getValueAt(row, 1).toString());
                 tfQTY.setText(tblBARANG.getValueAt(row, 2).toString());
                 tfHARGA.setText(tblBARANG.getValueAt(row, 3).toString());
-                
+
                 tfIDBARANG.setEnabled(false);
                 TAG = false;
             }
