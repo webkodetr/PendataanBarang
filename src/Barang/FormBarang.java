@@ -112,6 +112,36 @@ public class FormBarang extends javax.swing.JFrame {
         }
     }
 
+    private void delete() {
+        int select = tblBARANG.getSelectedRowCount();
+
+        if (select == 0) {
+            JOptionPane.showMessageDialog(rootPane, "Data Belum Dipilih!");
+        } else {
+
+            int pilih = JOptionPane.NO_OPTION;
+            pilih = JOptionPane.showConfirmDialog(rootPane, "Yakin ingin Hapus!",
+                    "Informasi", JOptionPane.YES_NO_OPTION, 2);
+
+            if (pilih == JOptionPane.YES_OPTION) {
+                int row = tblBARANG.getSelectedRow();
+
+                int id = Integer.valueOf(tblBARANG.getValueAt(row, 0).toString());
+                bc.delete(id);
+
+                clear();
+            }
+        }
+    }
+
+    private void search() {
+        if (tfPENCARIAN.getText().isEmpty()) {
+            clear();
+        } else {
+            bc.search(tblBARANG, Integer.valueOf(tfPENCARIAN.getText()));
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -191,6 +221,11 @@ public class FormBarang extends javax.swing.JFrame {
         tfHARGA.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
 
         btnHAPUS.setText("HAPUS");
+        btnHAPUS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHAPUSActionPerformed(evt);
+            }
+        });
 
         btnSIMPAN.setText("SIMPAN");
         btnSIMPAN.addActionListener(new java.awt.event.ActionListener() {
@@ -211,6 +246,11 @@ public class FormBarang extends javax.swing.JFrame {
         jLabel6.setText("PENCARIAN");
 
         tfPENCARIAN.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        tfPENCARIAN.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tfPENCARIANKeyReleased(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -312,6 +352,16 @@ public class FormBarang extends javax.swing.JFrame {
         // TODO add your handling code here:
         loadData();
     }//GEN-LAST:event_btnUBAHActionPerformed
+
+    private void btnHAPUSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHAPUSActionPerformed
+        // TODO add your handling code here:
+        delete();
+    }//GEN-LAST:event_btnHAPUSActionPerformed
+
+    private void tfPENCARIANKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfPENCARIANKeyReleased
+        // TODO add your handling code here:
+        search();
+    }//GEN-LAST:event_tfPENCARIANKeyReleased
 
     /**
      * @param args the command line arguments
