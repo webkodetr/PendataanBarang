@@ -29,6 +29,7 @@ public class FormBarang extends javax.swing.JFrame {
 
 //    untuk menghapus data yang diinputan
     private void clear() {
+        TAG = false;
         tfIDBARANG.setEnabled(true);
         tfIDBARANG.setText("");
         tfNAMABARANG.setText("");
